@@ -73,3 +73,7 @@ This stage ensures the heart rate is presented in a clinically meaningful unit, 
 ![Heart Rate Pipeline](output.png)
 
 
+### Conclusion
+
+The Digital Heart Rate Estimator demonstrates a fully digital, real-time ECG signal processing pipeline capable of accurately detecting heartbeats and computing BPM. By integrating preprocessing, adaptive peak detection, RR interval calculation, and BPM computation, the system achieves robust performance even in the presence of noise and varying signal amplitudes.
+
