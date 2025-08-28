@@ -18,6 +18,8 @@ This project implements a **real-time heart rate estimator** in **Verilog HDL** 
 
 The heart rate estimation system is designed as a **real-time, fully digital signal processing pipeline** for analyzing ECG signals and extracting accurate heart rate information. The architecture is modular, allowing independent verification and enhancement of each stage, while maintaining a continuous data flow suitable for **FPGA or ASIC implementation**. The system is capable of handling noisy and variable ECG signals, ensuring reliable operation in real-world biomedical applications.
 
+![Heart Rate Pipeline](pipeline.png)
+
 ### 1. Preprocessing Stage
 
 The preprocessing stage is responsible for **enhancing the QRS complexes** and suppressing noise in the raw ECG signal. It performs several critical operations:
