@@ -7,6 +7,8 @@
 
 The Electrocardiogram (ECG) is a non-invasive signal that represents the **electrical activity of the heart**. Key features of an ECG include **P, QRS, and T waves**, with the **QRS complex** being the most prominent for heart rate estimation. ECG signals are often noisy and vary in amplitude across individuals, requiring robust processing techniques.  
 
+![Heart Rate Pipeline](ecg_signal.png)
+
 This project implements a **real-time heart rate estimator** in **Verilog HDL** that processes ECG signals through a digital pipeline: **preprocessing** (derivative filtering, rectification, integration), **self-adaptive peak detection**, **RR interval averaging**, and **BPM calculation**. The design outputs accurate heart rate measurements robust to noise and signal variations and is verified using **Icarus Verilog** and **GTKWave**.  
 
 ## Heart Rate Pipeline
