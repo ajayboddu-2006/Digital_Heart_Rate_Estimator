@@ -68,4 +68,8 @@ This stage ensures the heart rate is presented in a clinically meaningful unit, 
 * **Scalable Averaging:** Configurable RR interval averaging improves stability and reduces the influence of transient errors.
 * **Hardware Optimized:** Efficient use of registers, adders, and shift operations ensures the design is suitable for FPGA or ASIC implementation.
 
+### Output Waveforms
+
+![Heart Rate Pipeline](output.png)
+
 
