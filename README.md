@@ -61,15 +61,4 @@ This stage ensures the heart rate is presented in a clinically meaningful unit, 
 * **Scalable Averaging:** Configurable RR interval averaging improves stability and reduces the influence of transient errors.
 * **Hardware Optimized:** Efficient use of registers, adders, and shift operations ensures the design is suitable for FPGA or ASIC implementation.
 
-### Design Highlights and Advantages
-
-* The separation of preprocessing, detection, interval calculation, and BPM computation ensures **clarity and maintainability**.
-* Adaptive algorithms enhance **robustness and accuracy**, making the system suitable for diverse real-world ECG signals.
-* Minimal hardware requirements combined with real-time processing capabilities make the pipeline ideal for **embedded biomedical applications**.
-* The design balances **computational simplicity** with **signal fidelity**, achieving accurate heart rate estimation without requiring complex algorithms or floating-point arithmetic.
-
-Overall, this heart rate pipeline demonstrates a **well-structured, hardware-friendly approach** to ECG signal processing, combining algorithmic rigor with practical design considerations to provide accurate, real-time heart rate monitoring.
-
-
-## Repository Structure
 
