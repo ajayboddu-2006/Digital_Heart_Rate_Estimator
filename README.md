@@ -25,14 +25,13 @@ The preprocessing stage is responsible for **enhancing the QRS complexes** and s
 
 * **Derivative Filtering:** Highlights rapid changes in the signal, primarily the steep slopes of the QRS complex. This allows the system to emphasize the most important features for heart rate estimation.
 * **Rectification:** Converts all signal values to positive, removing negative excursions. This simplifies subsequent peak detection and ensures that the integration stage can operate effectively.
-* **Moving-Window Integration:** Smooths the signal over a short temporal window, reducing high-frequency noise and enhancing the distinction between peaks and baseline fluctuations.
-
-This stage improves the **signal-to-noise ratio**, enabling the system to reliably detect heartbeats even in noisy ECG signals. The modular design allows easy adaptation of filter parameters to match different sampling rates or signal characteristics.
-#### Power Minimization
+* **Moving-Window Integration:** Smooths the signal over a short temporal window, reducing high-frequency noise and enhancing the distinction between peaks and baseline fluctuations
 
 **Activity detection & mode control:** A lightweight monitor measures sample differences and, using FLAT_THRESH and FLAT_CYCLES, drives an ACTIVE/SLEEP FSM to disable processing during flat ECG periods while remaining responsive to new activity.
 
-**True clock gating for low power:** The FSM controls a gated clock so the entire heavy preprocessing pipeline (derivative, rectification, integration) is clocked only when needed, eliminating unnecessary toggling and reducing dynamic power consumption.
+**True clock gating for low power:** The FSM controls a gated clock so the entire heavy preprocessing pipeline (derivative, rectification, integration) is clocked only when needed, eliminating unnecessary toggling and reducing dynamic power consumption. 
+
+
 
 ### 2. Adaptive Peak Detection
 
