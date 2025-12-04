@@ -80,7 +80,7 @@ This stage ensures the heart rate is presented in a clinically meaningful unit, 
 Hardware-efficient design: Uses simple arithmetic and localized processing blocks, achieving low area and low power while maintaining high reliability.
 ### Output Waveforms
 
-![Heart Rate Pipeline](output.png)
+![Heart Rate Pipeline](waveforms.png)
 
 
 ### Conclusion
