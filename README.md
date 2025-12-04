@@ -10,13 +10,12 @@ The Electrocardiogram (ECG) is a non-invasive signal that represents the **elect
 <img src="ECG-heart.png" alt="ECG-Heart" width="500"/>
 
 
-This project implements a **real-time heart rate estimator** in **Verilog HDL** that processes ECG signals through a digital pipeline: **preprocessing** (derivative filtering, rectification, integration), **self-adaptive peak detection**, **RR interval averaging**, and **BPM calculation**. The design outputs accurate heart rate measurements robust to noise and signal variations and is verified using **Icarus Verilog** and **GTKWave**.  
-
+This project implements a **real-time heart rate estimator** in **Verilog HDL** that processes ECG signals through a digital pipeline: **preprocessing** (derivative filtering, rectification, integration), **self-adaptive peak detection**, **RR interval averaging**, and **BPM calculation**. The design outputs accurate heart rate measurements robust to noise and signal variations and is verified using **Xilinx Vivado**.
 ![Heart Rate Pipeline](ecg_signal.png)
 
 ## Heart Rate Pipeline
 
-The heart rate estimation system is designed as a **real-time, fully digital signal processing pipeline** for analyzing ECG signals and extracting accurate heart rate information. The architecture is modular, allowing independent verification and enhancement of each stage, while maintaining a continuous data flow suitable for **FPGA or ASIC implementation**. The system is capable of handling noisy and variable ECG signals, ensuring reliable operation in real-world biomedical applications.
+The heart rate estimation system is designed as a **real-time, fully digital signal processing pipeline** for analyzing ECG signals and extracting accurate heart rate information. The architecture is modular, allowing independent verification and enhancement of each stage, while maintaining a continuous data flow suitable for **FPGA implementation**. The system is capable of handling noisy and variable ECG signals, ensuring reliable operation in real-world biomedical applications.
 
 ![Heart Rate Pipeline](pipeline.png)
 
@@ -29,6 +28,11 @@ The preprocessing stage is responsible for **enhancing the QRS complexes** and s
 * **Moving-Window Integration:** Smooths the signal over a short temporal window, reducing high-frequency noise and enhancing the distinction between peaks and baseline fluctuations.
 
 This stage improves the **signal-to-noise ratio**, enabling the system to reliably detect heartbeats even in noisy ECG signals. The modular design allows easy adaptation of filter parameters to match different sampling rates or signal characteristics.
+#### Power Minimization
+
+**Activity detection & mode control:** A lightweight monitor measures sample differences and, using FLAT_THRESH and FLAT_CYCLES, drives an ACTIVE/SLEEP FSM to disable processing during flat ECG periods while remaining responsive to new activity.
+
+**True clock gating for low power:** The FSM controls a gated clock so the entire heavy preprocessing pipeline (derivative, rectification, integration) is clocked only when needed, eliminating unnecessary toggling and reducing dynamic power consumption.
 
 ### 2. Adaptive Peak Detection
 
