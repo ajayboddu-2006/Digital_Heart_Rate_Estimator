@@ -27,9 +27,9 @@ The preprocessing stage is responsible for **enhancing the QRS complexes** and s
 * **Rectification:** Converts all signal values to positive, removing negative excursions. This simplifies subsequent peak detection and ensures that the integration stage can operate effectively.
 * **Moving-Window Integration:** Smooths the signal over a short temporal window, reducing high-frequency noise and enhancing the distinction between peaks and baseline fluctuations
 
-**Activity detection & mode control:** A lightweight monitor measures sample differences and, using FLAT_THRESH and FLAT_CYCLES, drives an ACTIVE/SLEEP FSM to disable processing during flat ECG periods while remaining responsive to new activity.
+* **Activity detection & mode control:** A lightweight monitor measures sample differences and, using FLAT_THRESH and FLAT_CYCLES, drives an ACTIVE/SLEEP FSM to disable processing during flat ECG periods while remaining responsive to new activity.
 
-**True clock gating for low power:** The FSM controls a gated clock so the entire heavy preprocessing pipeline (derivative, rectification, integration) is clocked only when needed, eliminating unnecessary toggling and reducing dynamic power consumption. 
+* **True clock gating for low power:** The FSM controls a gated clock so the entire heavy preprocessing pipeline (derivative, rectification, integration) is clocked only when needed, eliminating unnecessary toggling and reducing dynamic power consumption. 
 
 
 
@@ -40,6 +40,9 @@ After preprocessing, the system detects R-peaks using a **self-adaptive threshol
 * **Dynamic Thresholding:** The threshold adjusts automatically according to the maximum amplitude of the recent signal history, allowing the detector to handle varying signal amplitudes across different patients or measurement conditions.
 * **Peak Validation:** Only peaks exceeding the adaptive threshold are considered valid, reducing false detections caused by noise or motion artifacts.
 * **Robustness to Signal Variability:** By continuously updating the threshold, the system maintains accurate detection in the presence of amplitude drift, baseline wander, or transient spikes.
+* **Dynamic clock scaling (FAST/SLOW modes):** An inactivity counter (idle_cnt) and FSM switch processing to SLOW mode after IDLE_SAMPLES without peaks, reducing operation rate by using a divided clock (clk_slow), and return to FAST mode when activity resumes.
+
+* **Clock-scaled heavy logic:** The most power-hungry blocks (buffer max search and adaptive threshold update) run on the scaled clock (clk_scaled), so their switching activity is reduced during low heart-rate or idle periods while lightweight monitoring continues at the base clock.
 
 This adaptive approach ensures that the heart rate calculation remains accurate in real-time operation, without manual tuning or offline calibration.
 
@@ -50,7 +53,9 @@ Once R-peaks are detected, the pipeline calculates the **interval between consec
 * **Interval Averaging:** Multiple RR intervals are averaged over a configurable number of peaks. This reduces the impact of occasional irregular beats or misdetected peaks, providing a smoother, more physiologically meaningful heart rate estimate.
 * **Edge Detection:** Rising edges of the peak detection signal are tracked to accurately identify the timing of heartbeats.
 * **Outlier Rejection:** By using averaging and counting only valid intervals, the system reduces sensitivity to noise-induced false peaks.
+* **Clock gating:**  The entire RR-interval logic (timebase counter, edge detector, accumulation, averaging) runs on a gated clock clk_rr that is enabled only while done = 0. Once the required number of RR intervals is averaged, done is set to 1, clk_rr is shut off, and all internal registers stop toggling, eliminating further dynamic power.
 
+* **One-shot computation & localized activity:** The block performs a single averaging operation over NUM_PEAKS intervals, then freezes; no continuous processing or unnecessary re-calculation. Even the edge detection on peak_detected and the timebase counter only operate while measurement is active, keeping switching activity tightly bounded to the measurement window.
 The RR interval stage provides a **robust temporal measurement**, forming the foundation for accurate heart rate computation.
 
 ### 4. BPM Calculation
