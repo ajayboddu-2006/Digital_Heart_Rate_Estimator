@@ -1,7 +1,6 @@
 # Digital Heart Rate Estimator Using ECG Signal Processing
-
-**Duration:** Mar 2025 - Apr 2025  
-**Tools & Technologies:** Verilog, RTL Design, Digital Signal Processing (DSP), Icarus Verilog, GTKWave
+ 
+**Tools & Technologies:** Verilog, RTL Design, Digital Signal Processing (DSP), Xilinx Vivado
 
 ## Project Overview
 
@@ -70,12 +69,15 @@ This stage ensures the heart rate is presented in a clinically meaningful unit, 
 
 ### Key Features of the Architecture
 
-* **Modular Design:** Each stage operates independently, simplifying testing, debugging, and potential hardware reuse.
-* **Real-Time Operation:** The pipeline continuously processes incoming ECG signals, providing immediate heart rate outputs.
-* **Noise Resilience:** Preprocessing and adaptive detection stages ensure accurate operation under high-noise conditions.
-* **Scalable Averaging:** Configurable RR interval averaging improves stability and reduces the influence of transient errors.
-* **Hardware Optimized:** Efficient use of registers, adders, and shift operations ensures the design is suitable for FPGA or ASIC implementation.
+* **Real-time, modular pipeline:** Fully digital ECG processing chain (preprocessing → peak detection → RR calculation → BPM) optimized for FPGA implementation.
 
+* **Robust QRS enhancement & detection:** Derivative filtering, rectification, moving-window integration, and adaptive thresholding provide reliable peak detection under noisy and variable signal conditions.
+
+* **Adaptive and stable heart-rate estimation:** RR interval averaging and edge-based timing reduce false detections and produce smooth, accurate BPM outputs.
+
+* **Advanced low-power techniques:** Activity detection, ACTIVE/SLEEP FSMs, dynamic clock scaling (FAST/SLOW), and true clock gating disable heavy logic during idle periods to minimize dynamic power.
+
+Hardware-efficient design: Uses simple arithmetic and localized processing blocks, achieving low area and low power while maintaining high reliability.
 ### Output Waveforms
 
 ![Heart Rate Pipeline](output.png)
@@ -89,7 +91,8 @@ The Digital Heart Rate Estimator demonstrates a fully digital, real-time ECG sig
 ## Contributors
 
 - **Boddu Ajay**  
-- **Ganderla Chaithanya** 
+- **Ganderla Chaithanya**
+  
 
 
 
