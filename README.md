@@ -92,7 +92,7 @@ The Digital Heart Rate Estimator demonstrates a fully digital, real-time ECG sig
 
 - **Boddu Ajay**  
 - **Ganderla Chaithanya**
-  
+- **Chaluvadi Pavan Venkata Sai**
 
 
 
